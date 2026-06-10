@@ -32,13 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'tailwind',
+    'theme',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usuarios'
+    'usuarios',
+    'inicio',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gamestore.wsgi.application'
 
-
+TAILWIND_APP_NAME = "theme"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
