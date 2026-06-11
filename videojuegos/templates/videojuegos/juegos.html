@@ -2,7 +2,34 @@
 
 
 {% block body %}
-<div class="">
-    <h1 class="text-red-800 text-5xl text-center mt-10">Juegos</h1>
-</div>
+<h1>Listado de Juegos</h1>
+
+<a href="{% url 'crear_juego' %}">
+    Nuevo Juego
+</a>
+
+<hr>
+
+<table border="1">
+    <tr>
+        <th>Título</th>
+        <th>Desarrollador</th>
+        <th>Género</th>
+        <th>Fecha Lanzamiento</th>
+    </tr>
+
+    {% for juego in juegos %}
+    <tr>
+        <td>{{ juego.titulo }}</td>
+        <td>{{ juego.desarrollador }}</td>
+        <td>{{ juego.genero }}</td>
+        <td>{{ juego.fecha_lanzamiento }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">No hay juegos cargados.</td>
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}
