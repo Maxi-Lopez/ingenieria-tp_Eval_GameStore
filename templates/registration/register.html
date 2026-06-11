@@ -2,23 +2,89 @@
 {% load widget_tweaks %}
 
 {% block body %}
-    <div class="max-w-md max-auto mt-10 bg-white p-6 shadow">
-        <p class="text-3xl">Crear Cuenta</p>
-        <form method="POST">
+<div class="max-w-md mx-auto mt-16">
+
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
+
+        <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">
+            Crear Cuenta
+        </h1>
+
+        <p class="text-center text-gray-500 mb-8">
+            Registrate para comenzar a comprar videojuegos
+        </p>
+
+        <form method="POST" class="space-y-5">
             {% csrf_token %}
+
             {% for field in form %}
-            {%if field.label == 'Username' %}
-            <label>Nombre de usuario</label>
-            {%elif field.label == 'Password' %}
-            <label>Contraseña</label>
-            {% elif field.label == 'Password confirmation' %}
-            <label>Confirmar la contraseña</label>
-            {% else %}
-            <label>{{field.label}}</label>
-            {%endif%}
-            <p>{{field | add_class:'border-1 p-2 rounded'}}</p>
+            <div>
+
+                {% if field.label == 'Username' %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        Nombre de usuario
+                    </label>
+                 {% elif field.label == 'First name' %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        Nombre
+                    </label>
+                {% elif field.label == 'Last name' %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        Apellido
+                    </label>
+
+                {% elif field.label == 'Password' %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        Contraseña
+                    </label>
+
+                {% elif field.label == 'Password confirmation' %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        Confirmar contraseña
+                    </label>
+
+                {% elif field.label == 'Email address' %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        Correo Electronico
+                    </label>
+
+                {% else %}
+                    <label class="block mb-2 font-medium text-gray-700">
+                        {{ field.label }}
+                    </label>
+                {% endif %}
+
+                {{ field|add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
+
+                {% if field.errors %}
+                    <div class="mt-1 text-sm text-red-500">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
             {% endfor %}
-            <button type="submit">Registrarse</button>
+
+            <button
+                type="submit"
+                class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition duration-200 cursor-pointer"
+            >
+                Registrarse
+            </button>
+
         </form>
+
+        <div class="mt-6 text-center text-gray-600">
+            ¿Ya tenés una cuenta?
+            <a
+                href="{% url 'login' %}"
+                class="text-black font-semibold hover:underline"
+            >
+                Iniciar sesión
+            </a>
+        </div>
+
     </div>
+
+</div>
 {% endblock %}
