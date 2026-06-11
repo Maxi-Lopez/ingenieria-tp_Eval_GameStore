@@ -1,0 +1,29 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {%block title%}
+        Document
+        {% endblock %}
+    </title>
+    {% tailwind_css %}
+</head>
+<body>
+    <nav class=" flex justify-between p-3 bg-amber-700 text-xl">
+        <a href="{% url 'register' %}">Crear Cuenta</a>
+        <a href="{% url 'login' %}">iniciar Sesion</a>
+        <a href="#">Quienes Somos</a>
+        <a href="#">Catalogo</a>
+        <a href="#">Pre Venta</a>
+    </nav>
+    {% block body %}
+    {% endblock %} 
+
+    <footer class="border-t border-gray-200 bg-white py-4 text-center text-xl text-gray-400 fixed bottom-0 left-0 w-full">
+        Todos los derechos reservados. &copy; 2026
+    </footer>
+</body>
+</html>
