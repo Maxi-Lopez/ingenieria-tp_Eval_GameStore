@@ -19,11 +19,15 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from usuarios.views import register 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('inicio.urls')),
-    path('usuarios/',include('usuarios.urls'))
+    path('usuarios/',include('usuarios.urls')),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register',register, name='register')
 ]
 
 if settings.DEBUG:
