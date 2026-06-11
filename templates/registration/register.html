@@ -2,23 +2,23 @@
 {% load widget_tweaks %}
 
 {% block body %}
-    <p class="text-3xl">Crear Cuenta</p>
-    <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
+    <div class="max-w-md max-auto mt-10 bg-white p-6 shadow">
+        <p class="text-3xl">Crear Cuenta</p>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
             {%if field.label == 'Username' %}
-                <label>Nombre de usuario</label>
+            <label>Nombre de usuario</label>
             {%elif field.label == 'Password' %}
-                <label>Contraseña</label>
+            <label>Contraseña</label>
             {% elif field.label == 'Password confirmation' %}
-                <label>Confirmar la contraseña</label>
+            <label>Confirmar la contraseña</label>
             {% else %}
-                <label>{{field.label}}</label>
+            <label>{{field.label}}</label>
             {%endif%}
-
-             <p>{{field | add_class:'border-1 p-2 rounded'}}</p>
-
-        {% endfor %}
-        <button type="submit">Registrarse</button>
-    </form>
+            <p>{{field | add_class:'border-1 p-2 rounded'}}</p>
+            {% endfor %}
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
 {% endblock %}
