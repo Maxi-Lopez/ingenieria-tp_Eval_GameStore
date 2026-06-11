@@ -2,24 +2,56 @@
 {% load widget_tweaks %}
 
 {% block body %}
-<div class="max-w-md max-auto mt-10 bg-white p-6 shadow">
-    <p class="text-3xl">Iniciar Sesion</p>
-    <form method="POST" class="space-y-4">
-        {% csrf_token %}
-            <div>
-                {% for field in form %}
+<div class="max-w-md mx-auto mt-16">
+
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
+
+        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
+            Iniciar Sesión
+        </h1>
+
+        <p class="text-center text-gray-500 mb-8">
+            Accedé a tu cuenta para continuar
+        </p>
+
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div>
                     {% if field.label == 'Username' %}
-                        <label class="font-semibold">Nombre de usuario</label>
-                    {%elif field.label == 'Password'%}
-                        <label class="font-semibold">Contraseña</label>
-                    {%endif%}
-                    <p>{{field | add_class:'border-1 p-2 rounded'}}</p>
-                {% endfor %}
-            </div>
-            <button type="submit"
-            class="bg-blue-500 text-white hover:bg-blue-700 cursor-pointer p-2 rounded"
-            >Iniciar Sesion</button>
+                        <label class="block mb-2 font-medium text-gray-700">
+                            Nombre de usuario
+                        </label>
+                    {% elif field.label == 'Password' %}
+                        <label class="block mb-2 font-medium text-gray-700">
+                            Contraseña
+                        </label>
+                    {% endif %}
+
+                    {{ field|add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
+                </div>
+            {% endfor %}
+
+            <button
+                type="submit"
+                class="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition duration-200 cursor-pointer"
+            >
+                Iniciar Sesión
+            </button>
         </form>
-        <p>¿No tenes cuenta?    <a class="text-blue-600" href="{% url 'register' %}">Crea una cuenta</a></p>
+
+        <div class="mt-6 text-center text-gray-600">
+            ¿No tenés cuenta?
+            <a
+                href="{% url 'register' %}"
+                class="text-black font-semibold hover:underline"
+            >
+                Crear cuenta
+            </a>
+        </div>
+
+    </div>
+
 </div>
 {% endblock %}
