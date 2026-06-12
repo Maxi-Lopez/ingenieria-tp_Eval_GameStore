@@ -20,6 +20,7 @@ class Juego(models.Model):
     titulo = models.CharField(max_length=100)
     desarrollador = models.CharField(max_length=100)
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE, blank=True, null=True)
+    portada = models.ImageField(upload_to='juegos/', blank=True, null=True)
     fecha_lanzamiento = models.DateField()
     fecha_carga = models.DateField(auto_now_add=True)
     activo = models.BooleanField(default=True)

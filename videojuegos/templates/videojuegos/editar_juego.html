@@ -1,0 +1,27 @@
+{% extends 'inicio/base.html' %}
+
+{% block title %}
+    Editar Juego
+{% endblock %}
+
+{% block body %}
+
+<h1>Editar Juego</h1>
+
+<hr>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Guardar Cambios
+    </button>
+
+    <a href="{% url 'juegos' %}">
+        Cancelar
+    </a>
+</form>
+
+{% endblock %}

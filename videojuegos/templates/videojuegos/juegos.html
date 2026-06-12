@@ -1,35 +1,70 @@
 {% extends 'inicio/base.html' %}
 
+{% block title %}
+    Juegos
+{% endblock %}
 
 {% block body %}
-<h1>Listado de Juegos</h1>
 
-<a href="{% url 'crear_juego' %}">
+<h1 class="text-3xl font-bold mb-4">Listado de Juegos</h1>
+
+<a href="{% url 'crear_juego' %}"
+   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
     Nuevo Juego
 </a>
 
-<hr>
+<div class="mt-6">
+    {% if juegos %}
 
-<table border="1">
-    <tr>
-        <th>Título</th>
-        <th>Desarrollador</th>
-        <th>Género</th>
-        <th>Fecha Lanzamiento</th>
-    </tr>
+        <table class="w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 border">Título</th>
+                    <th class="p-2 border">Desarrollador</th>
+                    <th class="p-2 border">Género</th>
+                    <th class="p-2 border">Fecha Lanzamiento</th>
 
-    {% for juego in juegos %}
-    <tr>
-        <td>{{ juego.titulo }}</td>
-        <td>{{ juego.desarrollador }}</td>
-        <td>{{ juego.genero }}</td>
-        <td>{{ juego.fecha_lanzamiento }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="4">No hay juegos cargados.</td>
-    </tr>
-    {% endfor %}
-</table>
+                    {% if user.is_authenticated %}
+                    <th class="p-2 border">Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for juego in juegos %}
+                <tr>
+                    <td class="p-2 border">{{ juego.titulo }}</td>
+                    <td class="p-2 border">{{ juego.desarrollador }}</td>
+                    <td class="p-2 border">{{ juego.genero }}</td>
+                    <td class="p-2 border">{{ juego.fecha_lanzamiento }}</td>
+
+                    {% if user.is_authenticated %}
+                    <td class="p-2 border">
+                        <div class="flex gap-2">
+
+                            <a href="{% url 'editar_juego' juego.id %}"
+                               class="bg-blue-600 hover:bg-blue-700 text-black px-3 py-1 rounded">
+                                Editar
+                            </a>
+
+                            <a href="{% url 'eliminar_juego' juego.id %}"
+                               class="bg-red-600 hover:bg-red-800 text-black px-3 py-1 rounded">
+                                Eliminar
+                            </a>
+
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>No hay juegos cargados.</p>
+
+    {% endif %}
+</div>
 
 {% endblock %}

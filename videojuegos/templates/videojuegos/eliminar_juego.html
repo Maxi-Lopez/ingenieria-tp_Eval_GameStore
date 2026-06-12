@@ -1,0 +1,41 @@
+{% extends 'inicio/base.html' %}
+
+{% block title %}
+    Eliminar Juego
+{% endblock %}
+
+{% block body %}
+
+<h1>Eliminar Juego</h1>
+
+<p>
+    ¿Está seguro de que desea eliminar el siguiente juego?
+</p>
+
+<hr>
+
+<p>
+    <strong>Título:</strong> {{ juego.titulo }}
+</p>
+
+<p>
+    <strong>Desarrollador:</strong> {{ juego.desarrollador }}
+</p>
+
+<p>
+    <strong>Género:</strong> {{ juego.genero }}
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <button type="submit">
+        Confirmar Eliminación
+    </button>
+
+    <a href="{% url 'juegos' %}">
+        Cancelar
+    </a>
+</form>
+
+{% endblock %}
