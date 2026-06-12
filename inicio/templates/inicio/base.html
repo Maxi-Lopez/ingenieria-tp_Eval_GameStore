@@ -23,7 +23,7 @@
                     <a href="{% url 'juegos' %}" class="hover:text-black transition">Juegos</a>
                     <a href="#" class="hover:text-black hover:bg-amber-300 transition p-2 rounded">Ofertas</a>
                     <a href="{% url 'posteos' %}" class="hover:text-black transition">Comunidad</a>
-                    <a href="#" class="hover:text-black transition">Perfil</a>
+                    <a href="{% url 'perfil' %}" class="hover:text-black transition">Perfil</a>
 
                     <form action="{% url 'logout' %}" method="POST">
                         {% csrf_token %}

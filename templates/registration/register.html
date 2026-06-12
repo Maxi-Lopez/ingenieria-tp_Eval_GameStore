@@ -14,7 +14,7 @@
             Registrate para comenzar a comprar videojuegos
         </p>
 
-        <form method="POST" class="space-y-5">
+        <form method="POST" class="space-y-5" enctype="multipart/form-data">
             {% csrf_token %}
 
             {% for field in form %}
