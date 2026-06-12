@@ -17,7 +17,7 @@ def juegos(request):
 @login_required
 def crear_juego(request):
     if request.method == 'POST':
-        form = JuegoForm(request.POST)
+        form = JuegoForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.save()
@@ -38,11 +38,7 @@ def editar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
 
     if request.method == 'POST':
-        form = JuegoForm(
-            request.POST,
-            instance=juego
-        )
-
+        form = JuegoForm(request.POST, request.FILES, instance=juego)
         if form.is_valid():
             form.save()
             return redirect('juegos')

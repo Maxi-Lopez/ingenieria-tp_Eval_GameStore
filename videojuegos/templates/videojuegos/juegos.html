@@ -6,19 +6,27 @@
 
 {% block body %}
 
+
 <h1 class="text-3xl font-bold mb-4">Listado de Juegos</h1>
 
-<a href="{% url 'crear_juego' %}"
-   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-    Nuevo Juego
-</a>
+    {% if user.is_authenticated %}
 
-<div class="mt-6">
+        <a href="{% url 'crear_juego' %}"
+        class="bg-green-600 hover:bg-green-700 text-black px-4 py-2 rounded">
+            Nuevo Juego
+        </a>
+
+    {% endif %}
+
     {% if juegos %}
+ 
+<div class="mt-6">
+   
 
         <table class="w-full border border-gray-300">
             <thead class="bg-gray-200">
                 <tr>
+                    <th class="p-2 border">Portada</th>
                     <th class="p-2 border">Título</th>
                     <th class="p-2 border">Desarrollador</th>
                     <th class="p-2 border">Género</th>
@@ -33,6 +41,15 @@
             <tbody>
                 {% for juego in juegos %}
                 <tr>
+                    <td class="p-2 border">
+                        {% if juego.portada %}
+                            <img src="{{ juego.portada.url }}" alt="{{ juego.titulo }}" class="w-20 h-28 object-cover rounded mx-auto">
+                        {% else %}
+                            Sin portada
+                        {% endif %}
+                    </td>
+
+
                     <td class="p-2 border">{{ juego.titulo }}</td>
                     <td class="p-2 border">{{ juego.desarrollador }}</td>
                     <td class="p-2 border">{{ juego.genero }}</td>

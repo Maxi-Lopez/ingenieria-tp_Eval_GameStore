@@ -4,7 +4,7 @@ from .models import Juego
 class JuegoForm(forms.ModelForm):
     class Meta:
         model = Juego
-        fields = [
+        fields = ['portada',
             'titulo',
             'desarrollador',
             'genero',
