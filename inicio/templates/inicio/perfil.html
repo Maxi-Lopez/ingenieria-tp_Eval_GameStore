@@ -1,0 +1,20 @@
+{% extends 'inicio/base.html' %}
+
+{% block body %}
+    <div class=" justify-items-center pt-3">
+        <h1 class="text-3xl font-semibold text-blue-950 mb-2">Pefil Personal</h1>
+        <img src="{{user.foto_perfil.url}}" alt="imagen {{user.foto_perfil}}" width="200px" class="rounded-full border-3 border-blue">
+        <div>
+            <label>@{{user.username}}</label>
+        </div>
+        <div class="border border-black p-2 capitalize h-80 w-70 justify-items-center">    
+            <p class="font-semibold">Nombre</p>
+            <p>{{user.first_name}}</p>
+            <p class="font-semibold">Apellido</p>
+            <p>{{user.last_name}}</p>
+            <p class="font-semibold">Gmail</p>
+            <p>{{user.email}}</p>
+            
+        </div>
+    </div>
+{% endblock %}
