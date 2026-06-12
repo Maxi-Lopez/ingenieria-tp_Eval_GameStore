@@ -1,0 +1,60 @@
+{% extends 'inicio/base.html' %}
+
+{% block title %}
+    Eliminar Juego
+{% endblock %}
+
+{% block body %}
+
+<h1>Eliminar Posteo</h1>
+
+<p>
+    ¿Está seguro de que desea eliminar el siguiente Posteo?
+</p>
+
+<hr>
+
+<div class="bg-white border border-gray-500 rounded-2xl shadow-sm p-6 ">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-semibold text-gray-900">
+                            {{ posteo.usuario.username }} 👤
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Publicación de la comunidad
+                        </p>
+                    </div>
+                </div>
+                <p class="text-gray-800 whitespace-pre-line">
+                    {{ posteo.contenido }}
+                </p>
+                {% if posteo.foto_posteo %}
+                    <div class="mt-4">
+                        <img
+                            src="{{ posteo.foto_posteo.url }}"
+                            alt="Imagen del posteo"
+                            class="w-full rounded-xl border border-gray-200"
+                        >
+                    </div>
+                {% endif %}
+                {% if posteo.juego %}
+                    <div class="mt-4">
+                        <span class="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full">
+                            🎮 {{ posteo.juego }}
+                        </span>
+                    </div>
+                {% endif %}
+</div>
+<form method="POST">
+    {% csrf_token %}
+
+    <button type="submit">
+        Confirmar Eliminación
+    </button>
+
+    <a href="{% url 'posteos' %}">
+        Cancelar
+    </a>
+</form>
+
+{% endblock %}
