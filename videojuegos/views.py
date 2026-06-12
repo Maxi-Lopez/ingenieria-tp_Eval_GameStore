@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Juego
 from .forms import JuegoForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 @login_required
@@ -15,6 +15,7 @@ def juegos(request):
 
 
 @login_required
+@permission_required('videojuegos.add_juego')
 def crear_juego(request):
     if request.method == 'POST':
         form = JuegoForm(request.POST)
@@ -34,6 +35,7 @@ def crear_juego(request):
 
 
 @login_required
+@permission_required('videojuegos.change_juego')
 def editar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
 
@@ -61,6 +63,7 @@ def editar_juego(request, id):
 
 
 @login_required
+@permission_required('videojuegos.delete_juego')
 def eliminar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
 
