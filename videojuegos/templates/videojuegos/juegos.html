@@ -40,7 +40,7 @@
 
                     {% if user.is_authenticated %}
                     <td class="p-2 border">
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 justify-between pr-5 pl-5">
 
                             <a href="{% url 'editar_juego' juego.id %}"
                                class="bg-blue-600 hover:bg-blue-700 text-black px-3 py-1 rounded">
@@ -51,7 +51,12 @@
                                class="bg-red-600 hover:bg-red-800 text-black px-3 py-1 rounded">
                                 Eliminar
                             </a>
-
+                            <form action="{% url 'agregar_oferta' juego.id %}" method="post">
+                                {%csrf_token%}
+                                <button class="inline-block hover:scale-150 transition-transform">
+                                    <span class="text-amber-400 text-4xl">&#9733;</span>
+                                </button>
+                            </form>
                         </div>
                     </td>
                     {% endif %}

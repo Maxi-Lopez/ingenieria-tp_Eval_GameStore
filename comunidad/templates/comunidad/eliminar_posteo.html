@@ -6,15 +6,16 @@
 
 {% block body %}
 
-<h1>Eliminar Posteo</h1>
-
-<p>
+<h2 class="text-3xl font-bold text-gray-900 text-center mb-2">
+    Elimiar posteo
+</h2>
+<p class="pb-5">
     ¿Está seguro de que desea eliminar el siguiente Posteo?
 </p>
 
-<hr>
+<hr class="pb-5">
 
-<div class="bg-white border border-gray-500 rounded-2xl shadow-sm p-6 ">
+<div class="bg-white border border-gray-500 rounded-2xl shadow-sm p-6 flex flex-col items-center ">
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h3 class="font-semibold text-gray-900">
@@ -29,11 +30,11 @@
                     {{ posteo.contenido }}
                 </p>
                 {% if posteo.foto_posteo %}
-                    <div class="mt-4">
+                    <div class="mt-4 max-w-72 max-h-72 overflow-hidden">
                         <img
                             src="{{ posteo.foto_posteo.url }}"
                             alt="Imagen del posteo"
-                            class="w-full rounded-xl border border-gray-200"
+                            class="w-full h-full object-cover rounded-xl border border-gray-200"
                         >
                     </div>
                 {% endif %}
@@ -45,14 +46,13 @@
                     </div>
                 {% endif %}
 </div>
-<form method="POST">
+<form method="POST" class="pt-5">
     {% csrf_token %}
-
-    <button type="submit">
-        Confirmar Eliminación
+    <button type="submit" class=" p-2 bg-red-500 hover:bg-red-700 cursor-pointer">
+        Eliminar
     </button>
 
-    <a href="{% url 'posteos' %}">
+    <a href="{% url 'posteos' %}" class="p-3 bg-green-500 hover:bg-green-700 cursor-pointer">
         Cancelar
     </a>
 </form>
