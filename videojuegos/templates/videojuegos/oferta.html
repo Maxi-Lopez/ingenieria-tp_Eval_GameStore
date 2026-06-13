@@ -1,0 +1,54 @@
+{% extends 'inicio/base.html' %}
+
+{% block body %}
+
+<h1 class="text-3xl font-bold mb-4">Listado de Juegos EN OFERTA</h1>
+
+
+<div class="mt-6">
+    {% if juegos %}
+        <table class="w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 border">Título</th>
+                    <th class="p-2 border">Desarrollador</th>
+                    <th class="p-2 border">Género</th>
+                    <th class="p-2 border">Fecha Lanzamiento</th>
+
+                    {% if user.is_authenticated %}
+                    <th class="p-2 border">Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for juego in juegos %}
+                <tr>
+                    <td class="p-2 border">{{ juego.juego.titulo }}</td>
+                    <td class="p-2 border">{{ juego.juego.desarrollador }}</td>
+                    <td class="p-2 border">{{ juego.juego.genero }}</td>
+                    <td class="p-2 border">{{ juego.juego.fecha_lanzamiento }}</td>
+
+                    {% if user.is_authenticated %}
+                    <td class="p-2 border">
+                        <div class="flex gap-2 justify-between pr-5 pl-5">
+
+                            <a href="" class="inline-block hover:scale-105 transition-transform">
+                                 <span class=" text-4xl">&#9733;</span> Quitar de oferta
+                            </a>
+                        
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>No hay juegos cargados.</p>
+
+    {% endif %}
+</div>
+
+{% endblock %}

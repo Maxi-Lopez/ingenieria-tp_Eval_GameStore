@@ -27,5 +27,10 @@ class Juego(models.Model):
     def __str__(self):
         return self.titulo
 
-
+class Oferta(models.Model):
+    juego = models.ForeignKey(Juego, on_delete=models.CASCADE, blank=True, null=True)
+    activo = models.BooleanField(default=True)
+    fecha_carga = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return self.juego.titulo
     

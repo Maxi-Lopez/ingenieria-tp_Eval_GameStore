@@ -7,14 +7,65 @@
         <div>
             <label>@{{user.username}}</label>
         </div>
-        <div class="border border-black p-2 capitalize h-80 w-70 justify-items-center">    
+        <div class=" hover:border  border-black p-2 capitalize h-40 w-70 justify-items-center">    
             <p class="font-semibold">Nombre</p>
             <p>{{user.first_name}}</p>
             <p class="font-semibold">Apellido</p>
             <p>{{user.last_name}}</p>
             <p class="font-semibold">Gmail</p>
             <p>{{user.email}}</p>
-            
         </div>
+
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-2">
+            MIS POSTEOS
+        </h2>
+    <div class="max-w-2xl mx-auto mt-8 space-y-6">
+        {% for posteo in posteos %}
+            <div class="bg-white border border-gray-500 rounded-2xl shadow-sm p-6 ">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-semibold text-gray-900">
+                            {{ posteo.usuario.username }} 👤
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Publicación de la comunidad
+                        </p>
+                    </div>
+                </div>
+                <p class="text-gray-800 whitespace-pre-line">
+                    {{ posteo.contenido }}
+                </p>
+                {% if posteo.foto_posteo %}
+                    <div class="mt-4">
+                        <img
+                            src="{{ posteo.foto_posteo.url }}"
+                            alt="Imagen del posteo"
+                            class="w-full rounded-xl border border-gray-200"
+                        >
+                    </div>
+                {% endif %}
+                {% if posteo.juego %}
+                    <div class="mt-4">
+                        <span class="inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full">
+                            🎮 {{ posteo.juego }}
+                        </span>
+                    </div>
+                {% endif %}
+                <div class="flex gap-2">
+                    <a href="{% url 'editar_posteo' posteo.id %}" class="bg-blue-600 hover:bg-blue-700 text-black px-3 py-1 rounded">
+                        Editar
+                    </a>
+                    <a href="{% url 'eliminar_posteo' posteo.id %}" class="bg-red-600 hover:bg-red-800 text-black px-3 py-1 rounded">
+                        Eliminar
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center">
+                <p class="text-gray-500">
+                    Todavía no hay publicaciones en la comunidad.
+                </p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
