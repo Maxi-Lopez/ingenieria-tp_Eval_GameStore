@@ -12,8 +12,8 @@ def juegos(request):
 
 @login_required
 def crear_juego(request):
-    if request.method == 'POST':
-        form = JuegoForm(request.POST)
+    if request.method == 'POST' :
+        form = JuegoForm(request.POST,request.FILES )
         if form.is_valid():
             form.save()
             return redirect('juegos')
@@ -25,11 +25,8 @@ def crear_juego(request):
 @login_required
 def editar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
-    if request.method == 'POST':
-        form = JuegoForm(
-            request.POST,
-            instance=juego
-        )
+    if request.method == 'POST' :
+        form = JuegoForm( request.POST, instance=juego)
         if form.is_valid():
             form.save()
             return redirect('juegos')
@@ -53,8 +50,15 @@ def agregar_oferta(request,id):
         if oferta_existente:
             return redirect('juegos')    
         else:
-            Oferta.objects.create(juego= juego, activo = True )
+            Oferta.objects.create(juego= juego, activo = True, precio_oferta = juego.precio * 0.8 )
         return redirect('juegos')
+
+def quitar_oferta(request,id):
+    juego = get_object_or_404(Oferta, id=id)
+    if request.method =='POST':
+        juego.activo = False
+        juego.save()
+        return redirect('oferta')
 
 
 
