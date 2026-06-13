@@ -7,21 +7,32 @@
 {% block body %}
 
 <h1 class="text-3xl font-bold mb-4">Listado de Juegos</h1>
+{% if user.rol_usuario_id ==  2 or user.rol_usuario_id ==  null%}
+<div class="flex justify-between">
+    <a href="{% url 'crear_juego' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+        Nuevo Juego
+    </a>
+    <a href="#" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+        Agregar Genero de juego
+    </a>
+    <a href="#" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+        Agregar Consola
+    </a>
+</div>    
 
-<a href="{% url 'crear_juego' %}"
-   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-    Nuevo Juego
-</a>
+    
+{%endif%}
 
 <div class="mt-6">
     {% if juegos %}
-
+        {% if user.rol_usuario_id ==  2 or user.rol_usuario_id ==  null %}
         <table class="w-full border border-gray-300">
             <thead class="bg-gray-200">
                 <tr>
                     <th class="p-2 border">Título</th>
                     <th class="p-2 border">Desarrollador</th>
                     <th class="p-2 border">Género</th>
+                    <th class="p-2 border">Precio</th>
                     <th class="p-2 border">Fecha Lanzamiento</th>
 
                     {% if user.is_authenticated %}
@@ -36,6 +47,8 @@
                     <td class="p-2 border">{{ juego.titulo }}</td>
                     <td class="p-2 border">{{ juego.desarrollador }}</td>
                     <td class="p-2 border">{{ juego.genero }}</td>
+                    <td class="p-2 border">USD{{ juego.precio }}</td>
+                    
                     <td class="p-2 border">{{ juego.fecha_lanzamiento }}</td>
 
                     {% if user.is_authenticated %}
@@ -43,17 +56,17 @@
                         <div class="flex gap-2 justify-between pr-5 pl-5">
 
                             <a href="{% url 'editar_juego' juego.id %}"
-                               class="bg-blue-600 hover:bg-blue-700 text-black px-3 py-1 rounded">
+                               class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
                                 Editar
                             </a>
 
                             <a href="{% url 'eliminar_juego' juego.id %}"
-                               class="bg-red-600 hover:bg-red-800 text-black px-3 py-1 rounded">
+                               class="bg-red-600 hover:bg-red-800 text-white px-3 py-1 rounded">
                                 Eliminar
                             </a>
                             <form action="{% url 'agregar_oferta' juego.id %}" method="post">
                                 {%csrf_token%}
-                                <button class="inline-block hover:scale-150 transition-transform">
+                                <button class="inline-block hover:scale-150 transition-transform cursor-pointer">
                                     <span class="text-amber-400 text-4xl">&#9733;</span>
                                 </button>
                             </form>
@@ -64,6 +77,24 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <div class="grid grid-cols-3 gap-x-8 gap-y-4">
+                {% for juego in juegos %}
+                    <a href="#" class="cursor-pointer hover:scale-110 transition-transform hover:bg-amber-400 ">
+                        <div class=" flex flex-col items-center">
+                            {{juego.titulo}} -
+                            {{juego.fecha_lanzamiento}}
+                            {% if user.foto_perfil %}
+                            <img src="{{juego.portada.url}}" alt="imagen {{juego.juegos_fp}}" width="200px" class="rounded border-3 border-blue">
+                            {% endif %}
+                            <p>
+                                USD{{juego.precio}}
+                            </p>
+                        </div>
+                    </a>
+                {%endfor%}
+            </div>
+        {% endif %}
 
     {% else %}
 
