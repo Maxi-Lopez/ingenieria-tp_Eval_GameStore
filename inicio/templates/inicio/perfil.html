@@ -3,7 +3,11 @@
 {% block body %}
     <div class=" justify-items-center pt-3">
         <h1 class="text-3xl font-semibold text-blue-950 mb-2">Pefil Personal</h1>
-        <img src="{{user.foto_perfil.url}}" alt="imagen {{user.foto_perfil}}" width="200px" class="rounded-full border-3 border-blue">
+        {% if user.foto_perfil %}
+            <img src="{{user.foto_perfil.url}}" alt="imagen {{user.foto_perfil}}" width="200px" class="rounded-full border-3 border-blue">
+        {% else %}
+            <img src="/media/users_fp/nouphoto.png" alt="" width="200px" class="rounded-full border-3 border-blue">
+        {% endif %}
         <div>
             <label>@{{user.username}}</label>
         </div>

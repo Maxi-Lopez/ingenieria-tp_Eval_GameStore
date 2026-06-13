@@ -7,12 +7,14 @@
 
 <div class="mt-6">
     {% if juegos %}
+        {% if user.rol_usuario_id ==  2 or user.rol_usuario_id ==  null %}
         <table class="w-full border border-gray-300">
             <thead class="bg-gray-200">
                 <tr>
                     <th class="p-2 border">Título</th>
                     <th class="p-2 border">Desarrollador</th>
                     <th class="p-2 border">Género</th>
+                    <th class="p-2 border">Precio</th>
                     <th class="p-2 border">Fecha Lanzamiento</th>
 
                     {% if user.is_authenticated %}
@@ -26,15 +28,18 @@
                     <td class="p-2 border">{{ juego.juego.titulo }}</td>
                     <td class="p-2 border">{{ juego.juego.desarrollador }}</td>
                     <td class="p-2 border">{{ juego.juego.genero }}</td>
+                    <td class="p-2 border">USD{{ juego.precio_oferta }}</td>
                     <td class="p-2 border">{{ juego.juego.fecha_lanzamiento }}</td>
 
                     {% if user.is_authenticated %}
                     <td class="p-2 border">
-                        <div class="flex gap-2 justify-between pr-5 pl-5">
-
-                            <a href="" class="inline-block hover:scale-105 transition-transform">
-                                 <span class=" text-4xl">&#9733;</span> Quitar de oferta
-                            </a>
+                        <div class="flex gap-2  pr-5 pl-5">
+                            <form action="{%  url 'quitar_oferta' juego.id %}" method="post">
+                                {%csrf_token%}
+                                <button class="inline-block hover:scale-105 transition-transform cursor-pointer">
+                                    <span class=" text-2xl">&#9733; Quirar de Ofertas</span> 
+                                </button>
+                            </form>
                         
                         </div>
                     </td>
@@ -43,6 +48,25 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <div class="grid grid-cols-3 gap-x-8 gap-y-4">
+                {% for juego in juegos %}
+                    <a href="#" class="cursor-pointer hover:scale-110 transition-transform hover:bg-amber-400 ">
+                        <div class=" flex flex-col items-center">
+                            {{juego.juego.titulo}} -
+                            {{juego.juego.fecha_lanzamiento}}
+                            {% if user.foto_perfil %}
+                            <img src="{{juego.juego.portada.url}}" alt="imagen {{juego.juegos_fp}}" width="200px" class="rounded border-3 border-blue">
+                            {% endif %}
+                            <div class="flex">
+                                <p>Antes:</p><p class="line-through"> USD{{juego.juego.precio}}</p>
+                            </div>
+                            <p class="font-semibold bg-red-300 p-2 ">Ahora: USD{{juego.precio_oferta}}</p>
+                        </div>
+                    </a>
+                {%endfor%}
+            </div>
+        {% endif %}
 
     {% else %}
 
