@@ -10,13 +10,15 @@
     monospace;
     --color-red-200: oklch(88.5% 0.062 18.334);
     --color-red-300: oklch(80.8% 0.114 19.571);
-    --color-red-400: oklch(70.4% 0.191 22.216);
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-600: oklch(57.7% 0.245 27.325);
     --color-red-700: oklch(50.5% 0.213 27.518);
     --color-red-800: oklch(44.4% 0.177 26.899);
     --color-amber-300: oklch(87.9% 0.169 91.605);
     --color-amber-400: oklch(82.8% 0.189 84.429);
+    --color-yellow-200: oklch(94.5% 0.129 101.54);
+    --color-yellow-300: oklch(90.5% 0.182 98.111);
+    --color-yellow-400: oklch(85.2% 0.199 91.936);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-green-600: oklch(62.7% 0.194 149.214);
     --color-green-700: oklch(52.7% 0.154 150.069);
@@ -28,6 +30,7 @@
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-gray-700: oklch(37.3% 0.034 259.733);
@@ -52,8 +55,6 @@
     --text-4xl--line-height: calc(2.5 / 2.25);
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
-    --text-6xl: 3.75rem;
-    --text-6xl--line-height: 1;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -239,6 +240,30 @@
       max-width: 96rem;
     }
   }
+  .m-10 {
+    margin: calc(var(--spacing) * 10);
+  }
+  .mx-3 {
+    margin-inline: calc(var(--spacing) * 3);
+  }
+  .mx-8 {
+    margin-inline: calc(var(--spacing) * 8);
+  }
+  .mx-10 {
+    margin-inline: calc(var(--spacing) * 10);
+  }
+  .mx-40 {
+    margin-inline: calc(var(--spacing) * 40);
+  }
+  .mx-60 {
+    margin-inline: calc(var(--spacing) * 60);
+  }
+  .mx-80 {
+    margin-inline: calc(var(--spacing) * 80);
+  }
+  .mx-100 {
+    margin-inline: calc(var(--spacing) * 100);
+  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -259,6 +284,9 @@
   }
   .mt-16 {
     margin-top: calc(var(--spacing) * 16);
+  }
+  .mr-2 {
+    margin-right: calc(var(--spacing) * 2);
   }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
@@ -287,11 +315,17 @@
   .inline-block {
     display: inline-block;
   }
+  .inline-flex {
+    display: inline-flex;
+  }
   .table {
     display: table;
   }
   .h-1 {
     height: calc(var(--spacing) * 1);
+  }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
   }
   .h-40 {
     height: calc(var(--spacing) * 40);
@@ -302,11 +336,20 @@
   .h-screen {
     height: 100vh;
   }
+  .max-h-30 {
+    max-height: calc(var(--spacing) * 30);
+  }
+  .max-h-50 {
+    max-height: calc(var(--spacing) * 50);
+  }
   .max-h-72 {
     max-height: calc(var(--spacing) * 72);
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .w-4 {
+    width: calc(var(--spacing) * 4);
   }
   .w-20 {
     width: calc(var(--spacing) * 20);
@@ -325,6 +368,12 @@
   }
   .max-w-7xl {
     max-width: var(--container-7xl);
+  }
+  .max-w-30 {
+    max-width: calc(var(--spacing) * 30);
+  }
+  .max-w-50 {
+    max-width: calc(var(--spacing) * 50);
   }
   .max-w-72 {
     max-width: calc(var(--spacing) * 72);
@@ -447,12 +496,6 @@
   .border-red-200 {
     border-color: var(--color-red-200);
   }
-  .bg-amber-300 {
-    background-color: var(--color-amber-300);
-  }
-  .bg-amber-400 {
-    background-color: var(--color-amber-400);
-  }
   .bg-black {
     background-color: var(--color-black);
   }
@@ -470,6 +513,9 @@
   }
   .bg-gray-200 {
     background-color: var(--color-gray-200);
+  }
+  .bg-gray-300 {
+    background-color: var(--color-gray-300);
   }
   .bg-green-500 {
     background-color: var(--color-green-500);
@@ -491,6 +537,18 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-yellow-200 {
+    background-color: var(--color-yellow-200);
+  }
+  .bg-yellow-300 {
+    background-color: var(--color-yellow-300);
+  }
+  .bg-yellow-400 {
+    background-color: var(--color-yellow-400);
+  }
+  .fill-current {
+    fill: currentcolor;
   }
   .object-cover {
     object-fit: cover;
@@ -548,6 +606,9 @@
   }
   .pt-5 {
     padding-top: calc(var(--spacing) * 5);
+  }
+  .pr-3 {
+    padding-right: calc(var(--spacing) * 3);
   }
   .pr-5 {
     padding-right: calc(var(--spacing) * 5);
@@ -686,16 +747,6 @@
     --tw-outline-style: none;
     outline-style: none;
   }
-  .hover\:scale-100 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 100%;
-        --tw-scale-y: 100%;
-        --tw-scale-z: 100%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
   .hover\:scale-105 {
     &:hover {
       @media (hover: hover) {
@@ -716,52 +767,12 @@
       }
     }
   }
-  .hover\:scale-120 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 120%;
-        --tw-scale-y: 120%;
-        --tw-scale-z: 120%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
-  .hover\:scale-130 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 130%;
-        --tw-scale-y: 130%;
-        --tw-scale-z: 130%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
   .hover\:scale-150 {
     &:hover {
       @media (hover: hover) {
         --tw-scale-x: 150%;
         --tw-scale-y: 150%;
         --tw-scale-z: 150%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
-  .hover\:scale-170 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 170%;
-        --tw-scale-y: 170%;
-        --tw-scale-z: 170%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
-  .hover\:scale-200 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 200%;
-        --tw-scale-y: 200%;
-        --tw-scale-z: 200%;
         scale: var(--tw-scale-x) var(--tw-scale-y);
       }
     }
@@ -806,6 +817,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-100);
+      }
+    }
+  }
+  .hover\:bg-gray-400 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-400);
       }
     }
   }
