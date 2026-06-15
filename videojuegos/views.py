@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 
 @login_required
+@permission_required('videojuegos.view_juego')
 def juegos(request):
     juegos = Juego.objects.filter(activo=True).order_by('-id')
     return render(request,'videojuegos/juegos.html',{'juegos': juegos})
@@ -51,7 +52,8 @@ def agregar_oferta(request,id):
         if oferta_existente:
             return redirect('juegos')    
         else:
-            Oferta.objects.create(juego= juego, activo = True, precio_oferta = juego.precio * 0.8 )
+            precio_oferta = juego.precio * 0.8 
+            Oferta.objects.create(juego= juego, activo = True, precio_oferta = precio_oferta )
         return redirect('juegos')
 
 @login_required
@@ -92,7 +94,7 @@ def agregar_consola(request):
         form = GeneroForm()
     return render(request, 'videojuegos/agregar_consola.html', {'consolas':consolas, 'form':form})
 
-
+@login_required
 def detalle_juego(request, id):
     juego = get_object_or_404(Juego, id = id)
     return render (request, 'videojuegos/detalle_juego.html',{'juego':juego})
