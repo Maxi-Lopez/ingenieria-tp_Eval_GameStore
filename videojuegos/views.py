@@ -12,6 +12,7 @@ def juegos(request):
 
 
 @login_required
+@permission_required('videojuegos.add_juego')
 def crear_juego(request):
     if request.method == 'POST' :
         form = JuegoForm(request.POST,request.FILES )
@@ -24,6 +25,7 @@ def crear_juego(request):
 
 
 @login_required
+@permission_required('videojuegos.change_juego')
 def editar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
     if request.method == 'POST' :
@@ -36,6 +38,7 @@ def editar_juego(request, id):
     return render(request,'videojuegos/editar_juego.html',{'form': form,'juego': juego})
 
 @login_required
+@permission_required('videojuegos.delete_juego')
 def eliminar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
     if request.method == 'POST':
@@ -45,6 +48,7 @@ def eliminar_juego(request, id):
     return render(request,'videojuegos/eliminar_juego.html',{'juego': juego})
 
 @login_required
+@permission_required('videojuegos.add_oferta')
 def agregar_oferta(request,id):
     juego = get_object_or_404(Juego, id=id)
     if request.method =='POST':
@@ -57,6 +61,7 @@ def agregar_oferta(request,id):
         return redirect('juegos')
 
 @login_required
+@permission_required('videojuegos.delete_oferta')
 def quitar_oferta(request,id):
     juego = get_object_or_404(Oferta, id=id)
     if request.method =='POST':
@@ -65,11 +70,13 @@ def quitar_oferta(request,id):
         return redirect('oferta')
 
 @login_required
+@permission_required('videojuegos.view_oferta')
 def juegos_oferta(request):
     juegos = Oferta.objects.filter(activo=True).order_by('-id')
     return render(request, 'videojuegos/oferta.html', {'juegos':juegos})
 
 @login_required
+@permission_required('videojuegos.add_genero')
 def agregar_genero(request):
     generos = Genero.objects.filter(activo = True)
     if request.method == 'POST':
@@ -83,6 +90,7 @@ def agregar_genero(request):
 
 
 @login_required
+@permission_required('videojuegos.add_consola')
 def agregar_consola(request):
     consolas = Consola.objects.filter(activo = True)
     if request.method == 'POST':
@@ -95,6 +103,7 @@ def agregar_consola(request):
     return render(request, 'videojuegos/agregar_consola.html', {'consolas':consolas, 'form':form})
 
 @login_required
+@permission_required('videojuegos.view_juego')
 def detalle_juego(request, id):
     juego = get_object_or_404(Juego, id = id)
     return render (request, 'videojuegos/detalle_juego.html',{'juego':juego})
