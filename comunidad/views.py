@@ -4,7 +4,9 @@ from .models import Posteo
 from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
+
 @login_required
+@permission_required('comunidad.add_posteo')
 def posteos(request):
     if request.method == 'POST':
         form = PosteoForm(request.POST, request.FILES)
@@ -21,6 +23,7 @@ def posteos(request):
     return render(request, 'comunidad/posteos.html',{'form':form, 'posteos':posteos})
 
 @login_required
+@permission_required('comunidad.delete_posteo')
 def eliminar_posteo(request, id):
     posteo = get_object_or_404(Posteo, id=id)
     if request.method == 'POST':
@@ -30,6 +33,7 @@ def eliminar_posteo(request, id):
     return render(request, 'comunidad/eliminar_posteo.html', {'posteo':posteo})
 
 @login_required
+@permission_required('comunidad.add_posteo')
 def editar_posteo(request,id):
     posteo = get_object_or_404(Posteo, id=id)
     if request.method == 'POST':
