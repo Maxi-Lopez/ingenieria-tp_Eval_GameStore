@@ -72,7 +72,7 @@
                         </span>
                     </div>
                 {% endif %}
-                {% if user.username == posteo.usuario.username  %}
+                {% if user.username == posteo.usuario.username or user.username == 'admin' %}
                     <div class="flex gap-2">
                         <a href="{% url 'editar_posteo' posteo.id %}" class="bg-blue-500 hover:bg-blue-600 text-black px-3 py-1 rounded">
                             Editar
