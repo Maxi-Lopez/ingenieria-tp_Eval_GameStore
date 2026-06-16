@@ -1,61 +1,106 @@
 {% extends 'inicio/base.html' %}
 {% load widget_tweaks %}
 
+{% block title %}
+    Consolas
+{% endblock %}
+
 {% block body %}
 
-<div class="max-w-2xl mx-auto mt-16">
-    
+<div class="max-w-2xl mx-auto mt-16 space-y-8">
+
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
-        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
+
+        <h1 class="text-3xl font-bold text-center mb-6">
             Consolas Actuales
         </h1>
-        {% for consola in consolas %}
-            <p class="text-center hover:">
-                {{consola}}
-            </p>
-        {% endfor %}
+
+        {% if consolas %}
+
+        <div class="space-y-3">
+
+            {% for consola in consolas %}
+
+            <div class="border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition">
+
+                <h2 class="font-semibold text-lg">
+                    {{ consola.nombre }}
+                </h2>
+
+                <p class="text-gray-500 text-sm">
+                    {{ consola.fabricante }}
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <p class="text-center text-gray-500">
+            No hay consolas cargadas.
+        </p>
+
+        {% endif %}
+
     </div>
 
 
 
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
-        
-        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
+
+        <h1 class="text-3xl font-bold text-center mb-2">
             Agregar Consola
         </h1>
 
         <p class="text-center text-gray-500 mb-8">
-            Agregá una nueva consola de juego al catálogo de EVAL GAMESTORE.
+            Agregá una nueva consola al catálogo de EVAL GAMESTORE.
         </p>
 
         <form method="POST" class="space-y-5">
+
             {% csrf_token %}
 
             {% for field in form %}
-                <div>
-                    <label class="block mb-2 font-medium text-gray-700">
-                        {{ field.label }}
-                    </label>
-                    
-                    {{ field | add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
-                    
-                    {% if field.errors %}
-                        <div class="text-red-600 text-sm mt-1">
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
+
+            <div>
+
+                <label class="block mb-2 font-medium text-gray-700">
+                    {{ field.label }}
+                </label>
+
+                {{ field|add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
+
+                {% if field.errors %}
+                <div class="text-red-600 text-sm mt-2">
+                    {{ field.errors }}
                 </div>
+                {% endif %}
+
+            </div>
+
             {% endfor %}
 
             <div class="flex gap-3 pt-4">
-                <button type="submit" class="flex-1 bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition cursor-pointer">
-                   Agregar Consola
+
+                <button
+                    type="submit"
+                    class="flex-1 bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition cursor-pointer"
+                >
+                    Agregar Consola
                 </button>
 
-                <a href="{% url 'juegos' %}" class="flex-1 text-center border border-gray-300 py-3 rounded-lg font-medium hover:bg-gray-100 transition">
+                <a
+                    href="{% url 'juegos' %}"
+                    class="flex-1 text-center border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition"
+                >
                     Volver
                 </a>
+
             </div>
+
         </form>
 
     </div>

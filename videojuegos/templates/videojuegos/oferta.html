@@ -1,78 +1,181 @@
 {% extends 'inicio/base.html' %}
 
+{% block title %}
+    Juegos en Oferta
+{% endblock %}
+
 {% block body %}
 
-<h1 class="text-3xl font-bold mb-4">Listado de Juegos EN OFERTA</h1>
+<h1 class="text-4xl font-bold text-center mb-10">
+    Juegos en Oferta
+</h1>
 
+{% if juegos %}
 
-<div class="mt-6">
-    {% if juegos %}
-        {% if user.rol_usuario_id ==  2 or user.rol_usuario_id ==  null %}
-        <table class="w-full border border-gray-300">
+    {% if perms.videojuegos.change_oferta %}
+
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+
+        <table class="w-full">
+
             <thead class="bg-yellow-300">
-                <tr>
-                    <th class="p-2 border">Título</th>
-                    <th class="p-2 border">Desarrollador</th>
-                    <th class="p-2 border">Género</th>
-                    <th class="p-2 border">Precio</th>
-                    <th class="p-2 border">Fecha Lanzamiento</th>
 
-                    {% if user.is_authenticated %}
-                    <th class="p-2 border">Acciones</th>
-                    {% endif %}
+                <tr>
+                    <th class="p-4">Portada</th>
+                    <th class="p-4">Título</th>
+                    <th class="p-4">Desarrollador</th>
+                    <th class="p-4">Género</th>
+                    <th class="p-4">Precio Oferta</th>
+                    <th class="p-4">Lanzamiento</th>
+                    <th class="p-4">Acciones</th>
                 </tr>
+
             </thead>
-            <tbody>
-                {% for juego in juegos %}
-                <tr>
-                    <td class="p-2 border">{{ juego.juego.titulo }}</td>
-                    <td class="p-2 border">{{ juego.juego.desarrollador }}</td>
-                    <td class="p-2 border">{{ juego.juego.genero }}</td>
-                    <td class="p-2 border">USD{{ juego.precio_oferta }}</td>
-                    <td class="p-2 border">{{ juego.juego.fecha_lanzamiento }}</td>
 
-                    {% if user.is_authenticated %}
-                    <td class="p-2 border">
-                        <div class="flex gap-2  pr-5 pl-5">
-                            <form action="{%  url 'quitar_oferta' juego.id %}" method="post">
-                                {%csrf_token%}
-                                <button class="inline-block hover:scale-105 transition-transform cursor-pointer">
-                                    <span class=" text-2xl">&#9733; Quirar de Ofertas</span> 
-                                </button>
-                            </form>
-                        
-                        </div>
+            <tbody>
+
+            {% for juego in juegos %}
+
+                <tr class="border-t">
+
+                    <td class="p-3">
+
+                        {% if juego.juego.portada %}
+                        <img
+                            src="{{ juego.juego.portada.url }}"
+                            alt="{{ juego.juego.titulo }}"
+                            class="w-20 h-28 object-cover rounded mx-auto"
+                        >
+                        {% endif %}
+
                     </td>
-                    {% endif %}
+
+                    <td class="text-center">
+                        {{ juego.juego.titulo }}
+                    </td>
+
+                    <td class="text-center">
+                        {{ juego.juego.desarrollador }}
+                    </td>
+
+                    <td class="text-center">
+                        {{ juego.juego.genero }}
+                    </td>
+
+                    <td class="text-center font-bold text-red-600">
+                        USD {{ juego.precio_oferta }}
+                    </td>
+
+                    <td class="text-center">
+                        {{ juego.juego.fecha_lanzamiento }}
+                    </td>
+
+                    <td class="text-center">
+
+                        <form
+                            action="{% url 'quitar_oferta' juego.id %}"
+                            method="POST"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded cursor-pointer transition"
+                            >
+                                Quitar Oferta
+                            </button>
+
+                        </form>
+
+                    </td>
+
                 </tr>
-                {% endfor %}
+
+            {% endfor %}
+
             </tbody>
+
         </table>
-        {% else %}
-            <div class="grid grid-cols-3 gap-x-8 gap-y-4">
-                {% for juego in juegos %}
-                    <a href="#" class="cursor-pointer hover:scale-110 transition-transform hover:bg-amber-400 ">
-                        <div class=" flex flex-col items-center">
-                            {{juego.juego.titulo}} -
-                            {{juego.juego.fecha_lanzamiento}}
-                            {% if user.foto_perfil %}
-                            <img src="{{juego.juego.portada.url}}" alt="imagen {{juego.juegos_fp}}" width="200px" class="rounded border-3 border-blue">
-                            {% endif %}
-                            <div class="flex">
-                                <p>Antes:</p><p class="line-through"> USD{{juego.juego.precio}}</p>
-                            </div>
-                            <p class="font-semibold bg-red-300 p-2 ">Ahora: USD{{juego.precio_oferta}}</p>
-                        </div>
-                    </a>
-                {%endfor%}
-            </div>
-        {% endif %}
+
+    </div>
 
     {% else %}
 
-        <p>No hay juegos cargados.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {% for juego in juegos %}
+
+        <a
+            href="{% url 'detalle_juego' juego.juego.id %}"
+            class="hover:scale-105 transition"
+        >
+
+            <div class="bg-white rounded-2xl border border-gray-200 shadow p-5">
+
+                <div class="flex justify-center">
+
+                    {% if juego.juego.portada %}
+                    <img
+                        src="{{ juego.juego.portada.url }}"
+                        alt="{{ juego.juego.titulo }}"
+                        class="w-52 h-72 object-cover rounded"
+                    >
+                    {% endif %}
+
+                </div>
+
+                <h2 class="text-xl font-bold text-center mt-5">
+                    {{ juego.juego.titulo }}
+                </h2>
+
+                <p class="text-center text-gray-500">
+                    {{ juego.juego.fecha_lanzamiento }}
+                </p>
+
+                <div class="mt-5 flex justify-center gap-2">
+
+                    <span class="line-through text-gray-400">
+                        USD {{ juego.juego.precio }}
+                    </span>
+
+                    <span class="font-bold text-red-600">
+                        USD {{ juego.precio_oferta }}
+                    </span>
+
+                </div>
+
+                <div class="mt-4">
+
+                    <div class="bg-red-500 text-white text-center rounded-lg py-2 font-semibold">
+                        OFERTA
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
 
     {% endif %}
+
+{% else %}
+
+<div class="text-center mt-20">
+
+    <h2 class="text-2xl font-semibold mb-3">
+        No hay juegos en oferta
+    </h2>
+
+    <p class="text-gray-500">
+        Volvé más tarde para descubrir descuentos.
+    </p>
+
 </div>
+
+{% endif %}
 
 {% endblock %}

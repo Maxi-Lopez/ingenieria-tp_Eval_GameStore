@@ -11,7 +11,7 @@
 
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
 
-        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
+        <h1 class="text-3xl font-bold text-center mb-2">
             Nuevo Juego
         </h1>
 
@@ -19,40 +19,60 @@
             Agregá un nuevo juego al catálogo de EVAL GAMESTORE.
         </p>
 
-        <form method="POST" enctype="multipart/form-data" class="space-y-5">
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            class="space-y-5"
+        >
+
             {% csrf_token %}
 
             {% for field in form %}
-                <div>
-                    <label class="block mb-2 font-medium text-gray-700">
-                        {{ field.label }}
-                    </label>
+
+            <div>
+
+                <label class="block mb-2 font-medium text-gray-700">
+                    {{ field.label }}
+                </label>
+
+                {% if field.name == 'portada' %}
+
+                    {{ field|add_class:"w-full border border-dashed border-gray-300 rounded-lg p-3 cursor-pointer" }}
+
+                {% else %}
 
                     {{ field|add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
 
-                    {% if field.errors %}
-                        <div class="text-red-600 text-sm mt-1">
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
+                {% endif %}
+
+                {% if field.errors %}
+                <div class="text-red-600 text-sm mt-2">
+                    {{ field.errors }}
                 </div>
+                {% endif %}
+
+            </div>
+
             {% endfor %}
 
             <div class="flex gap-3 pt-4">
+
                 <button
                     type="submit"
-                    class="flex-1 bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition cursor-pointer"
+                    class="flex-1 bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition cursor-pointer"
                 >
                     Crear Juego
                 </button>
 
                 <a
                     href="{% url 'juegos' %}"
-                    class="flex-1 text-center border border-gray-300 py-3 rounded-lg font-medium hover:bg-gray-100 transition"
+                    class="flex-1 text-center border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition"
                 >
                     Volver
                 </a>
+
             </div>
+
         </form>
 
     </div>
