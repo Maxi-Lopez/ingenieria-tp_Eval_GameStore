@@ -33,7 +33,7 @@ def eliminar_posteo(request, id):
     return render(request, 'comunidad/eliminar_posteo.html', {'posteo':posteo})
 
 @login_required
-@permission_required('comunidad.add_posteo')
+@permission_required('comunidad.change_posteo')
 def editar_posteo(request,id):
     posteo = get_object_or_404(Posteo, id=id)
     if request.method == 'POST':

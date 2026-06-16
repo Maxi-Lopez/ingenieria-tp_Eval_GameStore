@@ -15,49 +15,80 @@
         </h1>
 
         <p class="text-center text-gray-500 mb-8">
-            Esta acción no se puede deshacer.
+            Esta acción desactivará el juego del catálogo.
         </p>
 
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-3 mb-8">
+        <div class="flex flex-col items-center mb-8">
 
-            <p>
-                <span class="font-semibold text-gray-700">Título:</span>
-                <span class="text-gray-900">{{ juego.titulo }}</span>
-            </p>
-
-            <p>
-                <span class="font-semibold text-gray-700">Desarrollador:</span>
-                <span class="text-gray-900">{{ juego.desarrollador }}</span>
-            </p>
-
-            <p>
-                <span class="font-semibold text-gray-700">Género:</span>
-                <span class="text-gray-900">{{ juego.genero }}</span>
-            </p>
+            {% if juego.portada %}
+                <img
+                    src="{{ juego.portada.url }}"
+                    alt="{{ juego.titulo }}"
+                    class="w-40 h-56 object-cover rounded-lg shadow"
+                >
+            {% else %}
+                <div class="w-40 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+                    Sin portada
+                </div>
+            {% endif %}
 
         </div>
 
-        <p class="text-center text-gray-700 mb-6">
-            ¿Está seguro de que desea eliminar este juego?
+        <div class="bg-red-50 border border-red-200 rounded-xl p-6 space-y-4 mb-8">
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Título
+                </p>
+                <p class="font-semibold">
+                    {{ juego.titulo }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Desarrollador
+                </p>
+                <p class="font-semibold">
+                    {{ juego.desarrollador }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Género
+                </p>
+                <p class="font-semibold">
+                    {{ juego.genero }}
+                </p>
+            </div>
+
+        </div>
+
+        <p class="text-center text-gray-700 mb-8">
+            ¿Deseás continuar con la eliminación?
         </p>
 
         <form method="POST">
+
             {% csrf_token %}
 
             <div class="flex gap-3">
+
                 <button
                     type="submit"
-                    class="flex-1 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition cursor-pointer"
+                    class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-medium transition cursor-pointer"
                 >
                     Confirmar Eliminación
                 </button>
 
                 <a
                     href="{% url 'juegos' %}"
-                    class="flex-1 text-center border border-gray-300 py-3 rounded-lg font-medium hover:bg-gray-100 transition"
+                    class="flex-1 text-center border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition"
                 >
                     Cancelar
                 </a>
+
             </div>
 
         </form>
