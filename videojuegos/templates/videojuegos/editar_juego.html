@@ -2,63 +2,99 @@
 {% load widget_tweaks %}
 
 {% block title %}
-    Editar Juego
+Editar Juego
 {% endblock %}
 
 {% block body %}
 
 <div class="max-w-2xl mx-auto mt-16">
 
-    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
+```
+<div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
 
-        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
-            Editar Juego
-        </h1>
+    <h1 class="text-3xl font-bold text-center mb-2">
+        Editar Juego
+    </h1>
 
-        <p class="text-center text-gray-500 mb-8">
-            Modificá la información del juego seleccionado.
+    <p class="text-center text-gray-500 mb-8">
+        Modificá la información del juego seleccionado.
+    </p>
+
+    {% if juego.portada %}
+    <div class="mb-8 flex flex-col items-center">
+
+        <p class="text-sm text-gray-500 mb-3">
+            Portada actual
         </p>
 
-        <form method="POST" enctype="multipart/form-data" class="space-y-5">
-            {% csrf_token %}
-
-            {% for field in form %}
-                <div>
-                    <label class="block mb-2 font-medium text-gray-700">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field|add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
-
-                    {% if field.errors %}
-                        <div class="text-red-600 text-sm mt-1">
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-
-            <div class="flex gap-3 pt-4">
-                <button
-                    type="submit"
-                    class="flex-1 bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition cursor-pointer"
-                >
-                    Guardar Cambios
-                </button>
-
-                <a
-                    href="{% url 'juegos' %}"
-                    class="flex-1 text-center border border-gray-300 py-3 rounded-lg font-medium hover:bg-gray-100 transition"
-                >
-                    Cancelar
-                </a>
-            </div>
-
-        </form>
+        <img
+            src="{{ juego.portada.url }}"
+            alt="{{ juego.titulo }}"
+            class="w-40 h-56 object-cover rounded-lg shadow"
+        >
 
     </div>
+    {% endif %}
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="space-y-5"
+    >
+
+        {% csrf_token %}
+
+        {% for field in form %}
+
+        <div>
+
+            <label class="block mb-2 font-medium text-gray-700">
+                {{ field.label }}
+            </label>
+
+            {% if field.name == 'portada' %}
+
+                {{ field|add_class:"w-full border border-dashed border-gray-300 rounded-lg p-3 cursor-pointer" }}
+
+            {% else %}
+
+                {{ field|add_class:"w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-black focus:border-black outline-none transition" }}
+
+            {% endif %}
+
+            {% if field.errors %}
+            <div class="text-red-600 text-sm mt-2">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+        <div class="flex gap-3 pt-4">
+
+            <button
+                type="submit"
+                class="flex-1 bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium transition cursor-pointer"
+            >
+                Guardar Cambios
+            </button>
+
+            <a
+                href="{% url 'juegos' %}"
+                class="flex-1 text-center border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition"
+            >
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+```
 
 </div>
 
 {% endblock %}
-

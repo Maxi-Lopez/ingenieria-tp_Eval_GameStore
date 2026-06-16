@@ -1,39 +1,113 @@
 {% extends 'inicio/base.html' %}
 
 {% block title %}
-    Juegos
+    {{ juego.titulo }}
 {% endblock %}
 
 {% block body %}
-<div class="max-w-2xl mx-auto mt-16">
+
+<div class="max-w-5xl mx-auto mt-16">
+
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-8">
-        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
-            {{juego.titulo}}
+
+        <h1 class="text-4xl font-bold text-center mb-8">
+            {{ juego.titulo }}
         </h1>
-        <div class="flex">
-            <img src="{{juego.portada.url}}" alt="imagen {{juego.juegos_fp}}" width="200px" class="rounded border-3 border-blue">
-            <div class="mx-8 text-1xl">
-                
-                <p class="font-semibold"> Titulo: </p>
-                {{juego.titulo}}
-                <p class="font-semibold"> Desarrollador: </p>
-                {{juego.desarrollador}}
-                <p class="font-semibold"> Genero: </p>
-                {{juego.genero}}
-                <p class="font-semibold"> Lanzamiento: </p>
-                {{juego.fecha_lanzamiento}}
-                <p class="font-semibold"> Consola: </p>
-                {{juego.consola}}
-                <p class="font-semibold"> Precio: </p>
-                USD${{juego.precio}}
-                <div class="mx-40">
-                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center cursor-pointer">
-                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-                        <span>Download</span>
-                    </button>
-                </div>
-                    
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+            <div class="flex justify-center">
+
+                {% if juego.portada %}
+                    <img
+                        src="{{ juego.portada.url }}"
+                        alt="{{ juego.titulo }}"
+                        class="w-72 h-[420px] object-cover rounded-xl shadow"
+                    >
+                {% else %}
+                    <div class="w-72 h-[420px] bg-gray-200 rounded-xl flex items-center justify-center text-gray-500">
+                        Sin portada
+                    </div>
+                {% endif %}
+
             </div>
+
+            <div class="space-y-5">
+
+                <div>
+                    <p class="font-semibold text-gray-600">
+                        Título
+                    </p>
+                    <p class="text-lg">
+                        {{ juego.titulo }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-gray-600">
+                        Desarrollador
+                    </p>
+                    <p>
+                        {{ juego.desarrollador }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-gray-600">
+                        Género
+                    </p>
+                    <p>
+                        {{ juego.genero }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-gray-600">
+                        Fecha de lanzamiento
+                    </p>
+                    <p>
+                        {{ juego.fecha_lanzamiento }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-gray-600">
+                        Consola
+                    </p>
+                    <p>
+                        {{ juego.consola }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="font-semibold text-gray-600">
+                        Precio
+                    </p>
+
+                    <p class="text-3xl font-bold text-green-600">
+                        USD ${{ juego.precio }}
+                    </p>
+                </div>
+
+                <div class="pt-6 flex gap-3">
+
+                    <button
+                        class="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg transition cursor-pointer"
+                    >
+                        Comprar
+                    </button>
+
+                    <a
+                        href="{% url 'juegos' %}"
+                        class="border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-100 transition"
+                    >
+                        Volver
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
