@@ -85,7 +85,11 @@
                     </p>
 
                     <p class="text-3xl font-bold text-green-600">
-                        USD ${{ juego.precio }}
+                        {% if juego_oferta  %}
+                            USD OFERTA{{ juego_oferta.precio_oferta }}
+                        {%else%}
+                            USD ${{ juego.precio }}
+                        {% endif %}
                     </p>
                 </div>
 

@@ -63,7 +63,7 @@
                     </td>
 
                     <td class="text-center font-bold text-red-600">
-                        USD {{ juego.precio_oferta }}
+                        USD {{ juego.precio_oferta|floatformat:2}}
                     </td>
 
                     <td class="text-center">
@@ -139,7 +139,7 @@
                     </span>
 
                     <span class="font-bold text-red-600">
-                        USD {{ juego.precio_oferta }}
+                        USD {{ juego.precio_oferta|floatformat:2}}
                     </span>
 
                 </div>

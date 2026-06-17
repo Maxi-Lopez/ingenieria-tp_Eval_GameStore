@@ -125,7 +125,7 @@ def agregar_oferta(request, id):
             return redirect('juegos')
 
         precio_oferta = juego.precio * 0.8
-
+        
         Oferta.objects.create(
             juego=juego,
             activo=True,
@@ -245,13 +245,19 @@ def detalle_juego(request, id):
 
     juego = get_object_or_404(
         Juego,
-        id=id
+        id=id,
+        activo = True
     )
+    try:
+        juego_oferta = get_object_or_404(Oferta, juego = juego.id, activo=True)
+    except:
+        juego_oferta= None
+
 
     return render(
         request,
         'videojuegos/detalle_juego.html',
         {
-            'juego': juego
+            'juego': juego, 'juego_oferta': juego_oferta
         }
     )
